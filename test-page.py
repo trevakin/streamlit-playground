@@ -26,12 +26,10 @@ CategoryListCol, CategTabCol2 = CategoriesTab.columns(2)
 CategoryListCol.caption("Category List")
 category_list = []
 
-while True:
-    category_entry = CategoryListCol.text_input(label="Enter a New Category",label_visibility="hidden", placeholder="New Item", max_chars=80)
-    if category_entry:
-        category_list.append(category_entry)
-        st.empty()
-    else: break
+category_entry = CategoryListCol.text_input(label="Enter a New Category",label_visibility="hidden", placeholder="New Item", max_chars=80)
+if category_entry:
+    category_list.append(category_entry)
+    st.empty()
 
 BudgetTab.markdown(Budget_titletxt)
 
