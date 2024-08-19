@@ -1,10 +1,7 @@
 import streamlit as st
-
-# Page Index
-home = st.Page(
-    "test-page.py",
-    title="Home"
-)
+import sys
+sys.path.append('Users/takin/Documents/Code/streamlit-playground')
+from storage.utils import add_category, get_all_categories
 
 titleText='''
 # Akin Budgeting Software
@@ -24,12 +21,23 @@ Transaction_titletxt = "### Transactions"
 CategoriesTab.markdown(Category_titletxt)
 CategoryListCol, CategTabCol2 = CategoriesTab.columns(2)
 CategoryListCol.caption("Category List")
-category_list = []
+categories = get_all_categories()
 
-category_entry = CategoryListCol.text_input(label="Enter a New Category",label_visibility="hidden", placeholder="New Item", max_chars=80)
+
+@st.fragment
+def displayCategories():
+    for category in categories:
+        CategoryListCol.write(category)
+     
+
+category_entry = CategoryListCol.text_input(label="Enter a New Category",
+                                            label_visibility="hidden",
+                                            placeholder="New Item",
+                                            max_chars=80)
 if category_entry:
-    category_list.append(category_entry)
-    st.empty()
+    add_category(category_entry)
+    st.success(f"Added '{category_entry}'!")
+    displayCategories()
 
 BudgetTab.markdown(Budget_titletxt)
 
